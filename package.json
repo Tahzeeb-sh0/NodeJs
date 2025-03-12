@@ -1,0 +1,12 @@
+{
+  "name": "v1",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "tahzeeb shaikh",
+  "type": "commonjs",
+  "main": "1_hello.js",
+  "scripts": {
+    "tahzeeb":"node 1_hello"
+  }
+}
