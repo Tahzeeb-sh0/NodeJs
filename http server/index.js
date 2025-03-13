@@ -1,28 +1,36 @@
-const http = require('http');
-const fs = require('fs');
+const http = require("http");
+const fs = require("fs");
+const url = require("url");
 
+const myserver = http.createServer((req, res) => {
+    if (req.url === "/favicon.ico ") {
+        return res.end();
+    }
 
-const myserver = http.createServer((req,res)=>{   
-    console.log(req.url)
-    const log = `${Date.now()}: ${req.url} new req received\n`
-    fs.appendFile("text.txt", log,(err,data)=>{
-       
+  const log = `${Date.now()}: ${req.url} new req received\n`;
+  const urls = url.parse(req.url,true);
+  console.log(urls)
+  fs.appendFile("text.txt", log, (err, data) => {
+    switch (urls.pathname) {
+      case "/":
+        const username = urls.query.name
+        res.end(`hii ${username}`);
+        break;
 
-        switch (req.url) {
-            case '/':
-                res.end("home");
-                break;
+      case "/contact":
+        res.end("my details");
+        break;
 
-            case '/contact':
-                res.end("my details");
-                break;
-        
-            default:
-                res.end("404 not found");
-                break;
-        }
-    })
-    
-})
+        case "/search":
+            const searchQuery = urls.query.search_query
+            res.end(`Here your searched result ${searchQuery}`);
+            break;
 
-myserver.listen(3000,()=>console.log("Server is listening"))
+      default:
+        res.end("404 not found");
+        break;
+    }
+  });
+});
+
+myserver.listen(3000, () => console.log("Server is listening"));
