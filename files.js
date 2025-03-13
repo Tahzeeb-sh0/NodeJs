@@ -17,6 +17,7 @@ fs.readFile("./text.txt","utf-8",(err,result)=>{
     }else{
         console.log(err)
     }
+    
 })
 
 const date = fs.appendFileSync("./text.txt", new Date().getDate().toLocaleString())
