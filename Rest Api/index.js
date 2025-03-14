@@ -1,16 +1,21 @@
 const express = require('express');
 const users = require('./MOCK_DATA.json')
 const app = express();
-PORT = 7000
+const fs = require('fs');
+const { json } = require('stream/consumers');
+PORT = 7000;
 
-app.route('/api/users/:id')
-.get('/user', (req, res) => {
-    const html = `
-    <ol>
-    ${users.map(users=>`<li>${users['first-name']}</li>`).join('\n')}
-    </ol>
-    `
-    res.send(html)
+
+app.use(express.urlencoded({extended:false}))
+
+app.route('/api/users')
+.get((req, res) => {
+    // const html = `
+    // <ol>
+    // ${users.map(users=>`<li>${users['first-name']}</li>`).join('\n')}
+    // </ol>
+    // `
+    res.json(users)
 })
 .patch((req , res)=>{
     return res.json({status:'pending'})
@@ -18,14 +23,14 @@ app.route('/api/users/:id')
 .delete((req , res)=>{
     return res.json({status:'pending'})
 })
-return res.json({status:'pending'})
+.post((req , res)=>{
 
-
-
-app.get('/user/:id', (req, res) => {
-    const id = Number(req.params.id)
-    const user =  users.find(user=> user.id === id)
-    res.send(user)
+    const body = req.body;
+    users.push({...body , id: users.length + 1})
+    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users),(err,data)=>{})
+   
 })
+
+
 
 app.listen(PORT,()=>console.log(`App is listening on this port: ${PORT}`))
