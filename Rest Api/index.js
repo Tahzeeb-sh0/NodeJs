@@ -33,12 +33,16 @@ app.route('/api/users')
 .post((req , res)=>{
 
     const body = req.body;
+    if (!body.email ||!body.first_name || !body.last_name || !body.gender) {
+        return res.status(400).json({message:"bad request"})
+    }else {
     users.push({...body , id: users.length + 1})
     fs.writeFile('./MOCK_DATA.json', JSON.stringify(users),(err,data)=>{
         if (err) throw err;
         console.log('Data written to file');
-        res.json({status:'success'})
+        res.status(201).json({status:'success'})
     })
+}
    
 })
 
