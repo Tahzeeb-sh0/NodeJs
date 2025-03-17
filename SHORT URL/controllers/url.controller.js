@@ -4,9 +4,7 @@ async function generateShortUrl(req,res) {
 
     const body = req.body;
  
-    if (!body.url.trim()) {
-        return res.status(400).json({error:'Url is required'})
-    }
+   
     const shortID = nanoid(8);
     Url.create({
         shortId:shortID,
@@ -32,7 +30,7 @@ async function redirectToOriginWebsite(req,res) {
        
         
     
-         res.redirect(entry.redirectUrl)
+         return res.redirect(entry?.redirectUrl)
     
 }
 
@@ -46,7 +44,7 @@ async function showAnalytics(req,res) {
 
     return res.status(200).json({
         TotalClickCount:result.visitHistory? result.visitHistory.length: 0,
-        Analytics: result.visitHistory || []
+        Analytics: result?.visitHistory || []
     })
 }
 

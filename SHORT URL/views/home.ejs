@@ -6,9 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>hellow world</h1>
-    <% urls.forEach((url) => {%>
-        <li><%= url.shortId %> </li>
-   <% })%>
+    <form action="/url" method="post">
+    <h1>Url shortner</h1>
+
+    <input type="text" name="redirectToOrigine" placeholder="http://example.com">
+    <button style="
+    background-color: blue; padding: 5px; color: white;
+     text-decoration: white;
+     cursor: pointer;
+
+    
+    ">Generate url</button>
+    </form>
 </body>
 </html>
