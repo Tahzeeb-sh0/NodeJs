@@ -29,6 +29,8 @@ async function redirectToOriginWebsite(req,res) {
                 }
             }
         })
+       
+        
     
          res.redirect(entry.redirectUrl)
     
