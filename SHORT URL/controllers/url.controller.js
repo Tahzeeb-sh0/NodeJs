@@ -3,16 +3,18 @@ import { Url } from "../models/url.model.js";
 async function generateShortUrl(req,res) {
 
     const body = req.body;
- 
+ console.log(`body data ${JSON.stringify(body.Date)}`);
    
     const shortID = nanoid(8);
-    Url.create({
+  const urls = await Url.create({
         shortId:shortID,
-        redirectUrl:body.url,
+        redirectUrl:body.redirectToOrigine,
         visitHistory:[]
     })
 
-    return res.status(201).json({url:shortID})
+    console.log(`data ${urls}`)
+
+    return res.status(201).json({url:urls.shortId})
 }
 
 
@@ -29,7 +31,7 @@ async function redirectToOriginWebsite(req,res) {
         })
        
         
-    
+    console.log(entry)
          return res.redirect(entry?.redirectUrl)
     
 }
