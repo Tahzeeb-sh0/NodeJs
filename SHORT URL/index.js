@@ -1,8 +1,6 @@
 import express from "express";
 import { connectMongodb } from "./dbconnect.db.js";
 import path from "path";
-import { Url } from "./models/url.model.js";
-import { json } from "stream/consumers";
 const app = express();
 const PORT = 8000;
 
@@ -14,7 +12,7 @@ app.set("views", path.resolve("./views"));
 
 import urlRouter from "./routes/url.route.js";
 import pageRoute from "./routes/page.js";
-import userRoute from "./routes/user.route.js";
+import userRoute from "./routes/static.route.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

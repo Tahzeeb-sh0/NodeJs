@@ -1,16 +1,26 @@
-import { User } from "../models/user.model.js";
+import { MyUser } from "../models/user.model.js";
 
-async function handleuserSignup(req,res) {
-    
-    const {username , email , password} = req.body;
+async function handleUserSignUp(req, res) {
+  const { username, email, password } = req.body;
 
-    await User.create({
+try {
+  
+      const user = await MyUser.create({
         username,
         email,
-        password,
-    })
-
-    return res.render("home")
+        password,cmd
+      });
+  
+  
+    if (!user) {
+      console.log("Failed")
+      return res.status(401).json({ message: "Failed to signup!" });
+    }
+} catch (error) {
+  console.log(error)
 }
 
-export {handleuserSignup}
+  return res.render("signup");
+}
+
+export { handleUserSignUp };
